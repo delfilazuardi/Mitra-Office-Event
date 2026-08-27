@@ -1,3 +1,4 @@
+import { EventItem } from '../types';
 import * as XLSX from 'xlsx';
 import { Participant, SyncConfig } from '../types';
 
@@ -181,6 +182,38 @@ function doPost(e) {
   } catch (error) {
     return ContentService.createTextOutput(JSON.stringify({ status: "error", message: error.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+export async function createEventToGoogleSheet(
+  event: any,
+  webhookUrl: string
+): Promise<boolean> {
+  if (!webhookUrl) {
+    console.error('URL Google Apps Script belum diatur.');
+    return false;
+  }
+
+  const payload = {
+    action: 'create_event',
+    event: event
+  };
+
+  try {
+    await fetch(webhookUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    console.log('Event berhasil dikirim ke Google Sheets.');
+    return true;
+
+  } catch (error) {
+    console.error('Gagal mengirim event ke Google Sheets:', error);
+    return false;
   }
 }
 
