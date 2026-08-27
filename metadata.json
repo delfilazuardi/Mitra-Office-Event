@@ -1,0 +1,10 @@
+{
+  "name": "Mitra Office Event",
+  "description": "Platform manajemen event, registrasi peserta online dengan foto event, tiket QR code unik, scanner check-in panitia, feedback otomatis, dan sinkronisasi data.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
